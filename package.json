@@ -1,0 +1,101 @@
+{
+  "name": "testid-generator",
+  "displayName": "Test ID Generator - Auto Add Test ID",
+  "description": "通过快捷键为选中的标签或所有标签生成 testid 属性",
+  "version": "1.0.0",
+  "publisher": "Addyya",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Addyyaa/testIdGenerator.git"
+  },
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onLanguage:typescriptreact",
+    "onLanguage:javascriptreact",
+    "onLanguage:typescript",
+    "onLanguage:javascript",
+    "onLanguage:html"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "testid.addToSelection",
+        "title": "为选中标签添加 Test ID"
+      },
+      {
+        "command": "testid.addToAll",
+        "title": "为所有标签添加 Test ID"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "testid.addToSelection",
+        "key": "ctrl+shift+t",
+        "mac": "cmd+shift+t",
+        "when": "editorTextFocus && !editorReadonly"
+      },
+      {
+        "command": "testid.addToAll",
+        "key": "ctrl+alt+t",
+        "mac": "cmd+alt+t",
+        "when": "editorTextFocus && !editorReadonly"
+      }
+    ],
+    "configuration": {
+      "title": "Test ID Generator",
+      "properties": {
+        "testid.attributeKeyword": {
+          "type": "string",
+          "default": "data-test-id",
+          "description": "Test ID 属性名称"
+        },
+        "testid.defaultTestId": {
+          "type": "string",
+          "default": "test",
+          "description": "默认 Test ID 值"
+        },
+        "testid.ignoreElements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [
+            "template",
+            "script",
+            "style",
+            "body",
+            "head",
+            "html"
+          ],
+          "description": "忽略的元素标签列表"
+        },
+        "testid.onlyElements": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": [],
+          "description": "仅应用的元素标签列表（如果设置，则只处理这些标签）"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "package": "npm run compile && npx -y @vscode/vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^18.0.0",
+    "@types/vscode": "^1.74.0",
+    "typescript": "^5.0.0"
+  }
+}
+
